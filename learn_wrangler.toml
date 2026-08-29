@@ -1,0 +1,9 @@
+name = "learn-bbp"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+
+[dev]
+port = 8788
+
+[vars]
+# TURSO_URL と TURSO_AUTH_TOKEN は wrangler secret で設定
