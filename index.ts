@@ -12,16 +12,11 @@ type Bindings = {
 
 const app = new Hono<{ Bindings: Bindings }>();
 
-const ALLOWED_ORIGINS_PATTERN = /^https:\/\/([a-z0-9-]+\.)?bughunter\.uk$/;
-
 app.use("*", async (c, next) => {
-  const origin = c.req.header("origin") || "";
-  if (ALLOWED_ORIGINS_PATTERN.test(origin)) {
-    c.res.headers.set("Access-Control-Allow-Origin", origin);
-    c.res.headers.set("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
-    c.res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Admin-Key");
-    c.res.headers.set("Access-Control-Max-Age", "86400");
-  }
+  c.res.headers.set("Access-Control-Allow-Origin", "*");
+  c.res.headers.set("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  c.res.headers.set("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Admin-Key");
+  c.res.headers.set("Access-Control-Max-Age", "86400");
   if (c.req.method === "OPTIONS") return c.text("", 204);
   await next();
 });
